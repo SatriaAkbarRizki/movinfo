@@ -1,0 +1,36 @@
+name: movinfo
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.4
+  go_router: ^13.2.0
+  http: ^1.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/release_date.png
+    - assets/icons/popularity.png
+  fonts:
+    - family: Abrill
+      fonts:
+        - asset: assets/fonts/Abril_Fatface/AbrilFatface-Regular.ttf
+        
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+    - family: Questrial
+      fonts:
+        - asset: assets/fonts/Questrial/Questrial-Regular.ttf
