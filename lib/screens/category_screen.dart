@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:movinfo/model/movie.dart';
+
 import 'package:movinfo/service/filterData.dart';
 import 'package:movinfo/widget/listmovie.dart';
 

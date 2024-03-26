@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movinfo/bloc/movie/movie_bloc.dart';
-import 'package:movinfo/service/apimovie.dart';
 import 'package:movinfo/service/filterData.dart';
 import 'package:movinfo/widget/listmovie.dart';
 import 'package:movinfo/widget/nothing_screens.dart';

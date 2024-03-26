@@ -6,13 +6,8 @@ import 'package:movinfo/cubit/navigation_cubit.dart';
 import 'package:movinfo/navigation/navbar.dart';
 import 'package:movinfo/screens/category_screen.dart';
 import 'package:movinfo/screens/detail_screen.dart';
-
-import 'package:movinfo/screens/home.dart';
-import 'package:movinfo/screens/search_screen.dart';
 import 'package:movinfo/theme/mytheme.dart';
-
 import 'bloc/movie/movie_bloc.dart';
-import 'model/movie.dart';
 
 void main() {
   runApp(MainApp());

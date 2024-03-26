@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import '../model/movie.dart';
 
 class FilterData {

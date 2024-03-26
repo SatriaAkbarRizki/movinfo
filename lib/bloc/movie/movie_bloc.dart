@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movinfo/model/movie.dart';
@@ -36,7 +34,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     on<OnSearchMovie>((event, emit) async {
       emit(MovieLoading());
 
-      await ApiMovie.searchMovie(event.title).then((value) {;
+      await ApiMovie.searchMovie(event.title).then((value) {
         if (value == null) {
           emit(MovieFailure('data is null'));
         } else {

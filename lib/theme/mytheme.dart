@@ -26,11 +26,10 @@ class MyTheme {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         backgroundColor: const Color(0xff193d3d),
-        selectedItemColor: Colors.white,
+        selectedItemColor: Colors.orange[400],
         unselectedItemColor: Colors.grey[400],
       ),
       inputDecorationTheme: InputDecorationTheme(
-        
           contentPadding: const EdgeInsets.all(15),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))));
 }
