@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movinfo/cubit/navigation_cubit.dart';
@@ -16,26 +14,31 @@ class NavBarMovie extends StatelessWidget {
       body: BlocBuilder<NavBarCubit, int>(
         builder: (context, state) => listPage[state],
       ),
-      bottomNavigationBar: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          child: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                  label: 'Home',
-                  icon: Icon(
-                    Icons.home,
-                  )),
-              BottomNavigationBarItem(
-                  label: 'Search', icon: Icon(Icons.search)),
-              BottomNavigationBarItem(
-                  label: 'Bookmark', icon: Icon(Icons.bookmark)),
-              BottomNavigationBarItem(
-                  label: 'Profile', icon: Icon(Icons.people))
-            ],
-            currentIndex: context.read<NavBarCubit>().state,
-            onTap: (value) => context.read<NavBarCubit>().switchNavBar(value),
-          )),
+      bottomNavigationBar: BlocBuilder<NavBarCubit, int>(
+        builder: (context, state) {
+          return ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              child: BottomNavigationBar(
+                items: const [
+                  BottomNavigationBarItem(
+                      label: 'Home',
+                      icon: Icon(
+                        Icons.home,
+                      )),
+                  BottomNavigationBarItem(
+                      label: 'Search', icon: Icon(Icons.search)),
+                  BottomNavigationBarItem(
+                      label: 'Bookmark', icon: Icon(Icons.bookmark)),
+                  BottomNavigationBarItem(
+                      label: 'Profile', icon: Icon(Icons.people))
+                ],
+                currentIndex: context.read<NavBarCubit>().state,
+                onTap: (value) =>
+                    context.read<NavBarCubit>().switchNavBar(value),
+              ));
+        },
+      ),
     );
   }
 }
