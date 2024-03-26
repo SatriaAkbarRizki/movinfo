@@ -23,6 +23,7 @@ flutter:
   assets:
     - assets/icons/release_date.png
     - assets/icons/popularity.png
+    - assets/Illustrations/film.png
   fonts:
     - family: Abrill
       fonts:

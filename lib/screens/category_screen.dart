@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/model/movie.dart';
+import 'package:movinfo/service/filterData.dart';
 import 'package:movinfo/widget/listmovie.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -18,27 +19,20 @@ class CategoryScreen extends StatelessWidget {
         forceMaterialTransparency: true,
         title: Text(data['title']),
         leading: IconButton(
-            onPressed: () => context.go('/'), icon: Icon(Icons.arrow_back)),
+            onPressed: () => context.go('/'), icon: const Icon(Icons.arrow_back)),
       ),
       body: ListView(children: [
         ListMovieWidget(
             showExpanded: true,
             routePage: routeName,
           
-            movies: dataNotNull(
+            movies: FilterData.dataNotNull(
+              
               data['movies'],
             ))
       ]),
     );
   }
 
-  List<MovieModel> dataNotNull(List<MovieModel> movies) {
-    for (int i = 0; i < movies.length; i++) {
-      if (movies[i].posterPath == null) {
-        log('Element is null: ${i.toString()}');
-        movies.removeAt(i);
-      }
-    }
-    return movies;
-  }
+  
 }

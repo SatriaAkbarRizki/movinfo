@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final movieModel = movieModelFromJson(jsonString);
-
 class MovieModel {
   final bool? adult;
   final String? backdropPath;

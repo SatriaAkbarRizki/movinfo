@@ -8,11 +8,13 @@ final class MovieInitial extends MovieState {}
 final class MovieLoading extends MovieState {}
 
 final class MovieLoaded extends MovieState {
-  final List<MovieModel> moviesTop;
-  final List<MovieModel> moviesPopular;
-  final List<MovieModel> moviesUpComing;
+  final List<MovieModel>? moviesTop;
+  final List<MovieModel>? moviesPopular;
+  final List<MovieModel>? moviesUpComing;
+  final List<MovieModel>? moviesSearch;
 
-  MovieLoaded(this.moviesTop, this.moviesPopular, this.moviesUpComing);
+  MovieLoaded(this.moviesTop, this.moviesPopular, this.moviesUpComing,
+      this.moviesSearch);
 }
 
 final class MovieFailure extends MovieState {

@@ -25,6 +25,7 @@ class _HomeScreensState extends State<HomeScreens> {
 
   @override
   Widget build(BuildContext context) {
+    log("REBUILD WIDGET ON HOME");
     return Scaffold(
       appBar: AppBar(
         forceMaterialTransparency: true,
@@ -54,27 +55,27 @@ class _HomeScreensState extends State<HomeScreens> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: state.moviesTop.length,
+                    itemCount: state.moviesTop?.length,
                     itemBuilder: (context, index) {
                       return TopMovieWidget(
-                        movie: state.moviesTop[index],
+                        movie: state.moviesTop![index],
                       );
                     },
                   ),
                 ),
-                ButtonMoreMovie(title: 'Top Movie', movies: state.moviesTop),
+                ButtonMoreMovie(title: 'Top Movie', movies: state.moviesTop!),
                 const TitleCategory(title: 'Popular Movie'),
                 ListMovieWidget(
-                  movies: state.moviesPopular,
+                  movies: state.moviesPopular!,
                 ),
                 ButtonMoreMovie(
-                    title: 'Popular Movie', movies: state.moviesPopular),
+                    title: 'Popular Movie', movies: state.moviesPopular!),
                 const TitleCategory(title: 'Coming Soon..'),
                 ListMovieWidget(
-                  movies: state.moviesUpComing,
+                  movies: state.moviesUpComing!,
                 ),
                 ButtonMoreMovie(
-                    title: 'Coming Soon', movies: state.moviesUpComing),
+                    title: 'Coming Soon', movies: state.moviesUpComing!),
                 const SizedBox(
                   height: 10,
                 )
@@ -84,24 +85,6 @@ class _HomeScreensState extends State<HomeScreens> {
           return const SizedBox();
         },
       ),
-      bottomNavigationBar: ClipRRect(
-          borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          child: BottomNavigationBar(
-            items: const [
-              BottomNavigationBarItem(
-                  label: 'Home',
-                  icon: Icon(
-                    Icons.home,
-                  )),
-              BottomNavigationBarItem(
-                  label: 'Search', icon: Icon(Icons.search)),
-              BottomNavigationBarItem(
-                  label: 'Bookmark', icon: Icon(Icons.bookmark)),
-              BottomNavigationBarItem(
-                  label: 'Profile', icon: Icon(Icons.people))
-            ],
-          )),
     );
   }
 }

@@ -25,8 +25,12 @@ class MyTheme {
                   const MaterialStatePropertyAll(Color(0xff5d8274)))),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xff193d3d),
+        backgroundColor: const Color(0xff193d3d),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey[400],
-      ));
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        
+          contentPadding: const EdgeInsets.all(15),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))));
 }
