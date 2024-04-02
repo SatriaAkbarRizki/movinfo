@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/model/movie.dart';
-import 'package:movinfo/screens/category_screen.dart';
+import 'package:movinfo/screens/category.dart';
 
 class ButtonMoreMovie extends StatelessWidget {
   final String title;

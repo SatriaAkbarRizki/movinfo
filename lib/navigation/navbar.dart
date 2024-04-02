@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movinfo/cubit/navigation_cubit.dart';
+import 'package:movinfo/screens/bookmark.dart';
 import 'package:movinfo/screens/home.dart';
-import 'package:movinfo/screens/search_screen.dart';
+import 'package:movinfo/screens/search.dart';
 
 class NavBarMovie extends StatelessWidget {
-  final List listPage = [const HomeScreens(), const SearchScreens()];
+  final List listPage = [
+    const HomeScreens(),
+    const SearchScreens(),
+     BookmarkScreens()
+  ];
   NavBarMovie({super.key});
 
   @override

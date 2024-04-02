@@ -1,9 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/model/movie.dart';
-import 'package:movinfo/screens/detail_screen.dart';
+import 'package:movinfo/screens/detail.dart';
 import 'package:movinfo/service/filterData.dart';
+
+import '../bloc/movie/movie_bloc.dart';
 
 class ListMovieWidget extends StatelessWidget {
   bool? showExpanded;
@@ -61,6 +63,26 @@ class ListMovieWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              BlocBuilder<MovieBloc, MovieState>(
+                builder: (context, state) {
+                  return Positioned(
+                      top: 2.0,
+                      right: 0.0,
+                      child: IconButton(
+                          onPressed: () {
+                            movies[index].isSaved == false
+                                ? context
+                                    .read<MovieBloc>()
+                                    .add(OnSavedBookMark(movies: movies[index]))
+                                : context.read<MovieBloc>().add(
+                                    OnUnSavedBookMark(movies: movies[index]));
+                          },
+                          icon: Icon(Icons.favorite,
+                              color: movies[index].isSaved == true
+                                  ? Colors.red
+                                  : Colors.white)));
+                },
+              )
             ],
           ),
         ),

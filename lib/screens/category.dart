@@ -17,20 +17,17 @@ class CategoryScreen extends StatelessWidget {
         forceMaterialTransparency: true,
         title: Text(data['title']),
         leading: IconButton(
-            onPressed: () => context.go('/'), icon: const Icon(Icons.arrow_back)),
+            onPressed: () => context.go('/'),
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: ListView(children: [
         ListMovieWidget(
             showExpanded: true,
             routePage: routeName,
-          
             movies: FilterData.dataNotNull(
-              
               data['movies'],
             ))
       ]),
     );
   }
-
-  
 }

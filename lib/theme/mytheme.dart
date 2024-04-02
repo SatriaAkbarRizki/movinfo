@@ -31,5 +31,9 @@ class MyTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.all(15),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))));
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+      cardTheme: CardTheme(
+        color: const Color(0xff5d8274),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ));
 }

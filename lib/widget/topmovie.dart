@@ -1,9 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/model/movie.dart';
-import 'package:movinfo/screens/detail_screen.dart';
+import 'package:movinfo/screens/detail.dart';
 import 'package:movinfo/service/filterData.dart';
+
+import '../bloc/movie/movie_bloc.dart';
 
 class TopMovieWidget extends StatelessWidget {
   final MovieModel movie;
@@ -52,6 +54,27 @@ class TopMovieWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              BlocBuilder<MovieBloc, MovieState>(
+                builder: (context, state) {
+                  return Positioned(
+                      top: 2.0,
+                      right: 0.0,
+                      child: IconButton(
+                          onPressed: () {
+                            movie.isSaved == false
+                                ? context
+                                    .read<MovieBloc>()
+                                    .add(OnSavedBookMark(movies: movie))
+                                : context
+                                    .read<MovieBloc>()
+                                    .add(OnUnSavedBookMark(movies: movie));
+                          },
+                          icon: Icon(Icons.favorite,
+                              color: movie.isSaved == true
+                                  ? Colors.red
+                                  : Colors.white)));
+                },
+              )
             ],
           ),
         ),
