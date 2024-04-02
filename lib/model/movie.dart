@@ -13,23 +13,24 @@ class MovieModel {
   final bool? video;
   final double? voteAverage;
   final int? voteCount;
+  bool isSaved;
 
-  MovieModel({
-    this.adult,
-    this.backdropPath,
-    this.genreIds,
-    this.id,
-    this.originalLanguage,
-    this.originalTitle,
-    this.overview,
-    this.popularity,
-    this.posterPath,
-    this.releaseDate,
-    this.title,
-    this.video,
-    this.voteAverage,
-    this.voteCount,
-  });
+  MovieModel(
+      {this.adult,
+      this.backdropPath,
+      this.genreIds,
+      this.id,
+      this.originalLanguage,
+      this.originalTitle,
+      this.overview,
+      this.popularity,
+      this.posterPath,
+      this.releaseDate,
+      this.title,
+      this.video,
+      this.voteAverage,
+      this.voteCount,
+      this.isSaved = false});
 
   MovieModel copyWith({
     bool? adult,
@@ -46,23 +47,24 @@ class MovieModel {
     bool? video,
     double? voteAverage,
     int? voteCount,
+    bool? isSaved,
   }) =>
       MovieModel(
-        adult: adult ?? this.adult,
-        backdropPath: backdropPath ?? this.backdropPath,
-        genreIds: genreIds ?? this.genreIds,
-        id: id ?? this.id,
-        originalLanguage: originalLanguage ?? this.originalLanguage,
-        originalTitle: originalTitle ?? this.originalTitle,
-        overview: overview ?? this.overview,
-        popularity: popularity ?? this.popularity,
-        posterPath: posterPath ?? this.posterPath,
-        releaseDate: releaseDate ?? this.releaseDate,
-        title: title ?? this.title,
-        video: video ?? this.video,
-        voteAverage: voteAverage ?? this.voteAverage,
-        voteCount: voteCount ?? this.voteCount,
-      );
+          adult: adult ?? this.adult,
+          backdropPath: backdropPath ?? this.backdropPath,
+          genreIds: genreIds ?? this.genreIds,
+          id: id ?? this.id,
+          originalLanguage: originalLanguage ?? this.originalLanguage,
+          originalTitle: originalTitle ?? this.originalTitle,
+          overview: overview ?? this.overview,
+          popularity: popularity ?? this.popularity,
+          posterPath: posterPath ?? this.posterPath,
+          releaseDate: releaseDate ?? this.releaseDate,
+          title: title ?? this.title,
+          video: video ?? this.video,
+          voteAverage: voteAverage ?? this.voteAverage,
+          voteCount: voteCount ?? this.voteCount,
+          isSaved: isSaved ?? this.isSaved);
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         adult: json["adult"],
