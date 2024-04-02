@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:movinfo/cubit/expanded_cubit.dart';
 import 'package:movinfo/cubit/navigation_cubit.dart';
 import 'package:movinfo/navigation/navbar.dart';
-import 'package:movinfo/screens/category_screen.dart';
-import 'package:movinfo/screens/detail_screen.dart';
+import 'package:movinfo/screens/category.dart';
+import 'package:movinfo/screens/detail.dart';
 import 'package:movinfo/theme/mytheme.dart';
 import 'bloc/movie/movie_bloc.dart';
 
@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => NavBarCubit(),
-        )
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: _route,
