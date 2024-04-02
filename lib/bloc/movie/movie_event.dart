@@ -10,3 +10,15 @@ class OnSearchMovie extends MovieEvent {
 
   OnSearchMovie({required this.title});
 }
+
+class OnSavedBookMark extends MovieEvent {
+  final MovieModel movies;
+
+  OnSavedBookMark({required this.movies});
+}
+
+class OnUnSavedBookMark extends MovieEvent {
+  final MovieModel movies;
+
+  OnUnSavedBookMark({required this.movies});
+}

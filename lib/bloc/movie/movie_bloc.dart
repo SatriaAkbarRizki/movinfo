@@ -1,3 +1,6 @@
+
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movinfo/model/movie.dart';
@@ -7,27 +10,38 @@ part 'movie_event.dart';
 part 'movie_state.dart';
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
-  List<MovieModel>? moviesCache;
+  List<List<MovieModel>?>? results;
+  List<List<MovieModel>?>? get previous => results;
 
   MovieBloc() : super(MovieInitial()) {
-    // Initialize moviesCache to an empty list
-    moviesCache = [];
-
     on<OnFetchAllCategory>((event, emit) async {
       List<String> categories = ['top_rated', 'popular', 'upcoming'];
-      if (moviesCache!.isEmpty) emit(MovieLoading());
+      if (results == null) emit(MovieLoading());
 
-      List<Future<List<MovieModel>?>> fetchFutures = categories
-          .map((category) => ApiMovie.fetchApiMovie(category))
-          .toList();
-
-      List<List<MovieModel>?> results = await Future.wait(fetchFutures);
-
-      if (results.isEmpty) {
-        emit(MovieFailure('Data is null'));
+      if (previous != null) {
+        emit(MovieLoaded(previous![0], previous![1], previous![2], null));
       } else {
-        moviesCache = results[0]!;
-        emit(MovieLoaded(results[0]!, results[1]!, results[2]!, null));
+        List<Future<List<MovieModel>?>> fetchFutures = categories
+            .map((category) => ApiMovie.fetchApiMovie(category))
+            .toList();
+
+        results = await Future.wait(fetchFutures);
+
+        if (results == null) {
+          emit(MovieFailure('Data is null'));
+        } else {
+          for (int index = 0; index < results!.length; index++) {
+            for (int indexData = 0;
+                indexData < results![index]!.length;
+                indexData++) {
+              if (results![index]![indexData].title ==
+                  'Godzilla x Kong: The New Empire') {
+                log('title: ${results![index]![indexData].title} and  status: ${results![index]![indexData].isSaved}');
+              }
+            }
+          }
+          emit(MovieLoaded(results![0], results![1], results![2], null));
+        }
       }
     });
 
@@ -38,13 +52,45 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         if (value == null) {
           emit(MovieFailure('data is null'));
         } else {
-          if (moviesCache!.isEmpty) {
+          if (results!.isEmpty) {
             emit(MovieLoaded(null, null, null, value));
           } else {
-            emit(MovieLoaded(moviesCache, moviesCache, moviesCache, value));
+            emit(MovieLoaded(results![0], results![1], results![2], value));
           }
         }
       });
+    });
+
+    on<OnSavedBookMark>((event, emit) {
+      MovieModel movieModel = event.movies.copyWith(isSaved: true);
+
+      for (int index = 0; index < results!.length; index++) {
+        for (int indexData = 0;
+            indexData < results![index]!.length;
+            indexData++) {
+          if (results![index]![indexData].title == movieModel.title) {
+            results![index]![indexData] = movieModel;
+            emit(MovieBookmark(isSaved: true));
+            emit(MovieLoaded(results![0], results![1], results![2], null));
+          }
+        }
+      }
+    });
+
+    on<OnUnSavedBookMark>((event, emit) {
+      MovieModel movieModel = event.movies.copyWith(isSaved: false);
+
+      for (int index = 0; index < results!.length; index++) {
+        for (int indexData = 0;
+            indexData < results![index]!.length;
+            indexData++) {
+          if (results![index]![indexData].title == movieModel.title) {
+            results![index]![indexData] = movieModel;
+            emit(MovieBookmark(isSaved: false));
+            emit(MovieLoaded(results![0], results![1], results![2], null));
+          }
+        }
+      }
     });
   }
 }

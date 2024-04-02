@@ -17,6 +17,12 @@ final class MovieLoaded extends MovieState {
       this.moviesSearch);
 }
 
+final class MovieBookmark extends MovieState {
+    final bool isSaved;
+
+  MovieBookmark({required this.isSaved});
+}
+
 final class MovieFailure extends MovieState {
   final String message;
 
