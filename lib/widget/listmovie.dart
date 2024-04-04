@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:movinfo/model/movie.dart';
 import 'package:movinfo/screens/detail.dart';
 import 'package:movinfo/service/filterData.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../bloc/movie/movie_bloc.dart';
 
@@ -33,17 +34,19 @@ class ListMovieWidget extends StatelessWidget {
           child: Stack(
             children: [
               Container(
-                  width: 200,
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                          image: NetworkImage(FilterData.filterUrlImage(
-                              movies[index].posterPath!)),
-                          fit: BoxFit.fill),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black, blurRadius: 5)
-                      ])),
+                width: 200,
+                decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(color: Colors.black, blurRadius: 5)
+                    ]),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: FilterData.filterUrlImage(movies[index].posterPath!),
+                  fit: BoxFit.fill,
+                ),
+              ),
               Container(
                 alignment: Alignment.bottomLeft,
                 width: 200,
