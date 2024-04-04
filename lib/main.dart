@@ -6,6 +6,7 @@ import 'package:movinfo/cubit/navigation_cubit.dart';
 import 'package:movinfo/navigation/navbar.dart';
 import 'package:movinfo/screens/category.dart';
 import 'package:movinfo/screens/detail.dart';
+import 'package:movinfo/screens/profile.dart';
 import 'package:movinfo/theme/mytheme.dart';
 import 'bloc/movie/movie_bloc.dart';
 
@@ -52,6 +53,10 @@ class MainApp extends StatelessWidget {
       path: DetailScreen.routName,
       builder: (context, state) =>
           DetailScreen(data: state.extra as Map<String, dynamic>),
+    ),
+    GoRoute(
+      path: ProfileScreens.routeName,
+      builder: (context, state) => const ProfileScreens(),
     )
   ]);
 }

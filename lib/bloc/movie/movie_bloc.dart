@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
@@ -30,16 +29,6 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         if (results == null) {
           emit(MovieFailure('Data is null'));
         } else {
-          for (int index = 0; index < results!.length; index++) {
-            for (int indexData = 0;
-                indexData < results![index]!.length;
-                indexData++) {
-              if (results![index]![indexData].title ==
-                  'Godzilla x Kong: The New Empire') {
-                log('title: ${results![index]![indexData].title} and  status: ${results![index]![indexData].isSaved}');
-              }
-            }
-          }
           emit(MovieLoaded(results![0], results![1], results![2], null));
         }
       }
