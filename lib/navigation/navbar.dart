@@ -10,8 +10,8 @@ class NavBarMovie extends StatelessWidget {
   final List listPage = [
     const HomeScreens(),
     const SearchScreens(),
-     BookmarkScreens(),
-     const ProfileScreens()
+    BookmarkScreens(),
+    const ProfileScreens()
   ];
   NavBarMovie({super.key});
 
@@ -38,7 +38,7 @@ class NavBarMovie extends StatelessWidget {
                   BottomNavigationBarItem(
                       label: 'Bookmark', icon: Icon(Icons.bookmark)),
                   BottomNavigationBarItem(
-                      label: 'Profile', icon: Icon(Icons.people))
+                      label: 'Profile', icon: Icon(Icons.person))
                 ],
                 currentIndex: context.read<NavBarCubit>().state,
                 onTap: (value) =>
