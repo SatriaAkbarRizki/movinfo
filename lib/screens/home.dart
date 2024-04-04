@@ -27,63 +27,71 @@ class _HomeScreensState extends State<HomeScreens> {
   Widget build(BuildContext context) {
     log("REBUILD WIDGET ON HOME");
     return Scaffold(
-      appBar: AppBar(
-        forceMaterialTransparency: true,
-        title: Text(
-          'MOVINFO',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: CircleAvatar(),
+      body: NestedScrollView(
+        physics: const BouncingScrollPhysics(
+            decelerationRate: ScrollDecelerationRate.normal),
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            forceMaterialTransparency: true,
+            title: Text(
+              'MOVINFO',
+              style: Theme.of(context).appBarTheme.titleTextStyle,
+            ),
+            actions: const [
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: CircleAvatar(),
+              )
+            ],
           )
         ],
-      ),
-      body: BlocBuilder<MovieBloc, MovieState>(
-        builder: (context, state) {
-          if (state is MovieLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is MovieLoaded) {
-            return ListView(
-              children: [
-                const TitleCategory(title: 'Top Movie'),
-                SizedBox(
-                  height: 250,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: state.moviesTop?.length,
-                    itemBuilder: (context, index) {
-                      return TopMovieWidget(
-                        movie: state.moviesTop![index],
-                      );
-                    },
+        body: BlocBuilder<MovieBloc, MovieState>(
+          builder: (context, state) {
+            if (state is MovieLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is MovieLoaded) {
+              return ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const TitleCategory(title: 'Top Movie'),
+                  SizedBox(
+                    height: 250,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.moviesTop?.length,
+                      itemBuilder: (context, index) {
+                        return TopMovieWidget(
+                          movie: state.moviesTop![index],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                ButtonMoreMovie(title: 'Top Movie', movies: state.moviesTop!),
-                const TitleCategory(title: 'Popular Movie'),
-                ListMovieWidget(
-                  movies: state.moviesPopular!,
-                ),
-                ButtonMoreMovie(
-                    title: 'Popular Movie', movies: state.moviesPopular!),
-                const TitleCategory(title: 'Coming Soon..'),
-                ListMovieWidget(
-                  movies: state.moviesUpComing!,
-                ),
-                ButtonMoreMovie(
-                    title: 'Coming Soon', movies: state.moviesUpComing!),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
-            );
-          }
-          return const SizedBox();
-        },
+                  ButtonMoreMovie(title: 'Top Movie', movies: state.moviesTop!),
+                  const TitleCategory(title: 'Popular Movie'),
+                  ListMovieWidget(
+                    movies: state.moviesPopular!,
+                  ),
+                  ButtonMoreMovie(
+                      title: 'Popular Movie', movies: state.moviesPopular!),
+                  const TitleCategory(title: 'Coming Soon..'),
+                  ListMovieWidget(
+                    movies: state.moviesUpComing!,
+                  ),
+                  ButtonMoreMovie(
+                      title: 'Coming Soon', movies: state.moviesUpComing!),
+                  const SizedBox(
+                    height: 10,
+                  )
+                  
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        ),
       ),
     );
   }
