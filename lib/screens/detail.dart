@@ -16,7 +16,6 @@ class DetailScreen extends StatelessWidget {
   MovieModel get movies => data['movies'] as MovieModel;
   @override
   Widget build(BuildContext context) {
-    log('On Saved ?? ${movies.isSaved}');
     return Scaffold(
       body: Stack(
         children: [
