@@ -17,7 +17,7 @@ class NothingSearch extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            'Search Movie Your Favorit',
+            'Search Movie Your Favorite',
             style: TextStyle(
               fontFamily: 'Abrill',
               fontSize: 18,
