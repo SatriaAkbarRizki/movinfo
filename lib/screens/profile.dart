@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:movinfo/widget/listmenu.dart';
+import 'package:movinfo/widget/listtheme.dart';
 
 class ProfileScreens extends StatelessWidget {
   static String routeName = '/profile';
@@ -51,14 +53,24 @@ class ProfileScreens extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10)),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width / 0.5,
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ListMenu(
-                        nameList: 'Theme Mode',
+                      InkWell(
+                        onTap: () => showModalBottomSheet(
+                          useSafeArea: true,
+                          context: context,
+                          builder: (context) => const Padding(
+                            padding: EdgeInsets.all(20),
+                            child: ListThemeModal(),
+                          ),
+                        ),
+                        child: const ListMenu(
+                          nameList: 'Theme Mode',
+                        ),
                       ),
-                      ListMenu(nameList: 'Profile Settings'),
-                      ListMenu(nameList: 'About')
+                      const ListMenu(nameList: 'Profile Settings'),
+                      const ListMenu(nameList: 'About')
                     ],
                   ),
                 ),
