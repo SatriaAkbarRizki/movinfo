@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.4
+  flutter_svg: ^2.0.10+1
   go_router: ^13.2.0
   http: ^1.2.0
   transparent_image: ^2.0.1
@@ -25,6 +26,13 @@ flutter:
     - assets/icons/release_date.png
     - assets/icons/popularity.png
     - assets/Illustrations/film.png
+    - assets/icons/Rate.svg
+    - assets/icons/date.svg
+    - assets/icons/like.svg
+    - assets/icons/home.svg
+    - assets/icons/search.svg
+    - assets/icons/bookmark.svg
+    - assets/icons/user.svg
   fonts:
     - family: Abrill
       fonts:
