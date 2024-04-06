@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/bloc/movie/movie_bloc.dart';
 import 'package:movinfo/screens/detail.dart';
@@ -63,51 +64,59 @@ class BookmarkScreens extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10)),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                movies[index].title!,
-                                style: Theme.of(context).textTheme.titleSmall,
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Image.asset(
-                                      "assets/icons/popularity.png",
-                                      color: Colors.white,
-                                      scale: 5.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    movies[index].popularity.toString(),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    movies[index].title!,
                                     style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Image.asset(
-                                      "assets/icons/release_date.png",
-                                      color: Colors.white,
-                                      scale: 5.0,
+                                        Theme.of(context).textTheme.titleSmall),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 5),
+                                      child: SvgPicture.asset(
+                                        'assets/icons/like.svg',
+                                        width: 15,
+                                        theme: SvgTheme(
+                                            currentColor: Colors.white),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    FilterData.filterReleaseDate(
-                                        movies[index].releaseDate.toString()),
-                                    style:
-                                        Theme.of(context).textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    Text(
+                                      movies[index].popularity.toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 5),
+                                      child: SvgPicture.asset(
+                                        'assets/icons/date.svg',
+                                        width: 15,
+                                        theme: SvgTheme(
+                                            currentColor: Colors.white),
+                                      ),
+                                    ),
+                                    Text(
+                                      FilterData.filterReleaseDate(
+                                          movies[index].releaseDate.toString()),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],

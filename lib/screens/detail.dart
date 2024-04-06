@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/bloc/movie/movie_bloc.dart';
 import 'package:movinfo/cubit/expanded_cubit.dart';
@@ -81,19 +82,17 @@ class DetailScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Image.asset(
-                                "assets/icons/popularity.png",
-                                scale: 5.0,
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 5, top: 10, bottom: 10),
+                              child: SvgPicture.asset(
+                                'assets/icons/like.svg',
                               ),
                             ),
                             Text(movies.popularity.toString()),
                             Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Image.asset(
-                                "assets/icons/release_date.png",
-                                scale: 5.0,
-                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 15, right: 5, top: 10, bottom: 10),
+                              child: SvgPicture.asset('assets/icons/date.svg'),
                             ),
                             Text(FilterData.filterReleaseDate(
                                 movies.releaseDate.toString()))
@@ -104,12 +103,13 @@ class DetailScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(12),
                             child: Text(
                               movies.overview!,
-                              textAlign: TextAlign.left,
+                              textAlign: TextAlign.justify,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
                                   .copyWith(
-                                      fontSize: state == false ? 15 : 20,
+                                      fontSize: state == false ? 13 : 16,
+                                      fontWeight: FontWeight.w500,
                                       color: Colors.black),
                             ),
                           ),
