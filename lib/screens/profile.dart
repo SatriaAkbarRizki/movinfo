@@ -1,11 +1,14 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movinfo/widget/about.dart';
 import 'package:movinfo/widget/listmenu.dart';
 import 'package:movinfo/widget/listtheme.dart';
+
+import '../widget/profile.dart';
 
 class ProfileScreens extends StatelessWidget {
   static String routeName = '/profile';
@@ -15,7 +18,9 @@ class ProfileScreens extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(
+          'Profile',
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 5),
@@ -33,16 +38,12 @@ class ProfileScreens extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20),
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
               child: Center(
                 child: Text(
                   'Example',
-                  style: TextStyle(
-                    fontFamily: 'Abrill',
-                    fontSize: 18,
-                    letterSpacing: 1.2,
-                  ),
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
               ),
             ),
@@ -58,6 +59,8 @@ class ProfileScreens extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => showModalBottomSheet(
+                          backgroundColor:
+                              Theme.of(context).scaffoldBackgroundColor,
                           useSafeArea: true,
                           context: context,
                           builder: (context) => const Padding(
@@ -69,32 +72,77 @@ class ProfileScreens extends StatelessWidget {
                           nameList: 'Theme Mode',
                         ),
                       ),
-                      const ListMenu(nameList: 'Profile Settings'),
-                      const ListMenu(nameList: 'About')
+                      InkWell(
+                          onTap: () => Future.delayed(
+                              const Duration(milliseconds: 500),
+                              () => showDialog(
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) => ProfileSettings(),
+                                  )),
+                          child: const ListMenu(nameList: 'Profile Settings')),
+                      InkWell(
+                          onTap: () => Future.delayed(
+                              const Duration(milliseconds: 500),
+                              () => showDialog(
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) => const AboutApp(),
+                                  )),
+                          child: const ListMenu(nameList: 'About'))
                     ],
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.logout,
-                    color: Colors.red,
+            InkWell(
+              onTap: () => showDialog(
+                useSafeArea: true,
+                context: context,
+                builder: (context) => AlertDialog(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  shape: BeveledRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  title: Text(
+                    'Log Out?',
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.titleSmall?.color),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: Text(
-                      'Log Out',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall
-                          ?.copyWith(fontSize: 16, color: Colors.red),
+                  content: Text('Are you sure want to log out??',
+                      style: TextStyle(
+                          color:
+                              Theme.of(context).textTheme.titleSmall?.color)),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          log('no log out');
+                          context.pop();
+                        },
+                        child: const Text('No')),
+                    ElevatedButton(onPressed: () {}, child: const Text('Yes'))
+                  ],
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.logout,
+                      color: Colors.red,
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Text(
+                        'Log Out',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontSize: 16, color: Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

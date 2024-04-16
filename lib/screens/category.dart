@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:movinfo/service/filterData.dart';
+import 'package:movinfo/theme/mytheme.dart';
 import 'package:movinfo/widget/listmovie.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -18,7 +19,10 @@ class CategoryScreen extends StatelessWidget {
         title: Text(data['title']),
         leading: IconButton(
             onPressed: () => context.go('/'),
-            icon: const Icon(Icons.arrow_back)),
+            icon: Icon(Icons.arrow_back,
+                color: ThemeMode == MyTheme().lightTheme
+                    ? Colors.black
+                    : Colors.white)),
       ),
       body: ListView(children: [
         ListMovieWidget(

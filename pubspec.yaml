@@ -26,6 +26,7 @@ flutter:
     - assets/icons/release_date.png
     - assets/icons/popularity.png
     - assets/Illustrations/film.png
+    - assets/Illustrations/notbookmark.png
     - assets/icons/Rate.svg
     - assets/icons/date.svg
     - assets/icons/like.svg
@@ -33,6 +34,7 @@ flutter:
     - assets/icons/search.svg
     - assets/icons/bookmark.svg
     - assets/icons/user.svg
+    - assets/icons/edit-circle-line.svg
   fonts:
     - family: Abrill
       fonts:

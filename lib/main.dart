@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/cubit/expanded_cubit.dart';
 import 'package:movinfo/cubit/navigation_cubit.dart';
+import 'package:movinfo/cubit/theme_cubit.dart';
 import 'package:movinfo/navigation/navbar.dart';
 import 'package:movinfo/screens/category.dart';
 import 'package:movinfo/screens/detail.dart';
@@ -30,10 +31,13 @@ class MainApp extends StatelessWidget {
         BlocProvider(
           create: (context) => NavBarCubit(),
         ),
+        BlocProvider(
+          create: (context) => ThemeCubit(),
+        ),
       ],
       child: MaterialApp.router(
         routerConfig: _route,
-        theme: MyTheme().lightTheme,
+        theme: MyTheme().darkTheme,
         debugShowCheckedModeBanner: false,
       ),
     );

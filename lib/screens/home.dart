@@ -28,6 +28,7 @@ class _HomeScreensState extends State<HomeScreens> {
     log("REBUILD WIDGET ON HOME");
     return Scaffold(
       body: NestedScrollView(
+        
         physics: const BouncingScrollPhysics(
             decelerationRate: ScrollDecelerationRate.normal),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -85,7 +86,6 @@ class _HomeScreensState extends State<HomeScreens> {
                   const SizedBox(
                     height: 10,
                   )
-                  
                 ],
               );
             }

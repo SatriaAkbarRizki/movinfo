@@ -54,9 +54,9 @@ class DetailScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    decoration: const BoxDecoration(
-                        color: Color(0xfff8f9fb),
-                        borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20))),
                     height: state == false
@@ -74,7 +74,12 @@ class DetailScreen extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
-                                  .copyWith(fontSize: 28, color: Colors.black),
+                                  .copyWith(
+                                      fontSize: 28,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.color),
                             ),
                           ),
                         ),
@@ -86,16 +91,31 @@ class DetailScreen extends StatelessWidget {
                                   left: 15, right: 5, top: 10, bottom: 10),
                               child: SvgPicture.asset(
                                 'assets/icons/like.svg',
+                                theme: const SvgTheme(currentColor: Colors.red),
                               ),
                             ),
-                            Text(movies.popularity.toString()),
+                            Text(
+                              movies.popularity.toString(),
+                              style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.color),
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 15, right: 5, top: 10, bottom: 10),
-                              child: SvgPicture.asset('assets/icons/date.svg'),
+                              child: SvgPicture.asset('assets/icons/date.svg',
+                                  theme: const SvgTheme(currentColor: Colors.orange)),
                             ),
-                            Text(FilterData.filterReleaseDate(
-                                movies.releaseDate.toString()))
+                            Text(
+                                FilterData.filterReleaseDate(
+                                    movies.releaseDate.toString()),
+                                style: TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.color))
                           ],
                         ),
                         Expanded(
@@ -106,11 +126,10 @@ class DetailScreen extends StatelessWidget {
                               textAlign: TextAlign.justify,
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleSmall!
+                                  .bodySmall!
                                   .copyWith(
-                                      fontSize: state == false ? 13 : 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black),
+                                    fontSize: state == false ? 13 : 16,
+                                  ),
                             ),
                           ),
                         )

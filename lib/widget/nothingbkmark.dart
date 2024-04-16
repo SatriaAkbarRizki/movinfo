@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class NothingSearch extends StatelessWidget {
-  const NothingSearch({super.key});
+class NothingBookMark extends StatelessWidget {
+  const NothingBookMark({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +9,7 @@ class NothingSearch extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(
-          "assets/Illustrations/film.png",
+          'assets/Illustrations/notbookmark.png',
           scale: 1.5,
         ),
         const SizedBox(
@@ -17,7 +17,7 @@ class NothingSearch extends StatelessWidget {
         ),
         Center(
           child: Text(
-            'Search Movie Your Favorite',
+            'Oh noo... you dont have bookmark',
             style: TextStyle(
                 fontFamily: 'Abrill',
                 fontSize: 18,
