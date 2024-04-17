@@ -13,6 +13,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   go_router: ^13.2.0
   http: ^1.2.0
+  lottie: ^3.1.0
   transparent_image: ^2.0.1
 
 dev_dependencies:
@@ -25,6 +26,7 @@ flutter:
   assets:
     - assets/icons/release_date.png
     - assets/icons/popularity.png
+    - assets/Illustrations/error.png
     - assets/Illustrations/film.png
     - assets/Illustrations/notbookmark.png
     - assets/icons/Rate.svg
@@ -35,6 +37,7 @@ flutter:
     - assets/icons/bookmark.svg
     - assets/icons/user.svg
     - assets/icons/edit-circle-line.svg
+    - assets/animations/loading.json
   fonts:
     - family: Abrill
       fonts:

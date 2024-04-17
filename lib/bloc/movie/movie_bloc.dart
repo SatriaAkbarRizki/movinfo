@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movinfo/model/movie.dart';
@@ -23,9 +26,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
             .toList();
 
         results = await Future.wait(fetchFutures);
-
-        if (results == null) {
-          emit(MovieFailure('Data is null'));
+        if (results?[Random().nextInt(2)] == null) {
+          emit(MovieFailure(
+              'Oh noo, data not found, please check your internet'));
         } else {
           emit(MovieLoaded(results![0], results![1], results![2], null));
         }
