@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movinfo/widget/listmovie.dart';
 import 'package:movinfo/widget/button_moremovie.dart';
 import 'package:movinfo/widget/listmovie_random.dart';
+import 'package:movinfo/widget/nothing_screens.dart';
 import 'package:movinfo/widget/titlecategory.dart';
 import 'package:movinfo/widget/topmovie.dart';
 
@@ -49,9 +51,13 @@ class _HomeScreensState extends State<HomeScreens> {
         body: BlocBuilder<MovieBloc, MovieState>(
           builder: (context, state) {
             if (state is MovieLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child:
+                    Lottie.asset('assets/animations/loading.json', height: 150),
               );
+            } else if (state is MovieFailure) {
+              return NothingWidget(
+                  message: state.message, type: TypeNothing.datanull);
             } else if (state is MovieLoaded) {
               return ListView(
                 physics: const BouncingScrollPhysics(),

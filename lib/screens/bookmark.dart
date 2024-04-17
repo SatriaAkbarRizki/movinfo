@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movinfo/bloc/movie/movie_bloc.dart';
 import 'package:movinfo/screens/detail.dart';
-import 'package:movinfo/widget/nothingbkmark.dart';
+import 'package:movinfo/widget/nothing_screens.dart';
 
 import '../model/movie.dart';
 import '../service/filterData.dart';
@@ -40,7 +39,10 @@ class BookmarkScreens extends StatelessWidget {
             ];
 
             if (movies.isEmpty) {
-              return const NothingBookMark();
+              return NothingWidget(
+                message: 'Oh noo... you dont have bookmark',
+                type: TypeNothing.bookmark,
+              );
             }
             return ListView.builder(
               itemCount: movies.length,

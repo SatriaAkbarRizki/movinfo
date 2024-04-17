@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:movinfo/bloc/movie/movie_bloc.dart';
 import 'package:movinfo/service/filterData.dart';
 import 'package:movinfo/widget/listmovie.dart';
@@ -30,8 +30,9 @@ class SearchScreens extends StatelessWidget {
         body: BlocBuilder<MovieBloc, MovieState>(
           builder: (context, state) {
             if (state is MovieLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child:
+                    Lottie.asset('assets/animations/loading.json', height: 150),
               );
             } else if (state is MovieFailure) {
               return Center(
@@ -40,7 +41,10 @@ class SearchScreens extends StatelessWidget {
             } else if (state is MovieLoaded) {
               if (state.moviesSearch?.length == 0 ||
                   state.moviesSearch == null) {
-                return const NothingSearch();
+                return NothingWidget(
+                  message: 'Search Movie Your Favorite',
+                  type: TypeNothing.search,
+                );
               } else {
                 return SingleChildScrollView(
                   child: Padding(
@@ -53,7 +57,10 @@ class SearchScreens extends StatelessWidget {
                 );
               }
             }
-            return const NothingSearch();
+            return NothingWidget(
+              message: 'Search Movie Your Favorite',
+              type: TypeNothing.search,
+            );
           },
         ),
       ),
