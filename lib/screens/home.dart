@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movinfo/widget/listmovie.dart';
 import 'package:movinfo/widget/button_moremovie.dart';
+import 'package:movinfo/widget/listmovie_random.dart';
 import 'package:movinfo/widget/titlecategory.dart';
 import 'package:movinfo/widget/topmovie.dart';
 
@@ -28,7 +29,6 @@ class _HomeScreensState extends State<HomeScreens> {
     log("REBUILD WIDGET ON HOME");
     return Scaffold(
       body: NestedScrollView(
-        
         physics: const BouncingScrollPhysics(
             decelerationRate: ScrollDecelerationRate.normal),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -85,7 +85,11 @@ class _HomeScreensState extends State<HomeScreens> {
                       title: 'Coming Soon', movies: state.moviesUpComing!),
                   const SizedBox(
                     height: 10,
-                  )
+                  ),
+                  ListMovieRandomWidget(
+                      moviesPopular: state.moviesPopular!,
+                      moviesTop: state.moviesTop!,
+                      moviesUpComing: state.moviesUpComing!)
                 ],
               );
             }
