@@ -35,10 +35,17 @@ class MainApp extends StatelessWidget {
           create: (context) => ThemeCubit(),
         ),
       ],
-      child: MaterialApp.router(
-        routerConfig: _route,
-        theme: MyTheme().darkTheme,
-        debugShowCheckedModeBanner: false,
+      child: BlocBuilder<ThemeCubit, bool>(
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          return MaterialApp.router(
+            routerConfig: _route,
+            themeMode: state == true ? ThemeMode.dark : ThemeMode.light,
+            theme: MyTheme().lightTheme,
+            darkTheme: MyTheme().darkTheme,
+            debugShowCheckedModeBanner: false,
+          );
+        },
       ),
     );
   }
