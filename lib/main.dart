@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movinfo/bloc/profile/profile_bloc.dart';
 import 'package:movinfo/cubit/expanded_cubit.dart';
 import 'package:movinfo/cubit/navigation_cubit.dart';
 import 'package:movinfo/cubit/theme_cubit.dart';
@@ -24,6 +25,8 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => MovieBloc(),
+        ),BlocProvider(
+          create: (context) => ProfileBloc(),
         ),
         BlocProvider(
           create: (context) => ExpandedCubit(),
