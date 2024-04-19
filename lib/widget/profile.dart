@@ -1,12 +1,36 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:movinfo/bloc/profile/profile_bloc.dart';
 
-class ProfileSettings extends StatelessWidget {
+class ProfileSettings extends StatefulWidget {
+  ProfileSettings({super.key});
+
+  @override
+  State<ProfileSettings> createState() => _ProfileSettingsState();
+}
+
+class _ProfileSettingsState extends State<ProfileSettings> {
+  final FocusScopeNode nameFocus = FocusScopeNode();
+
+  final FocusScopeNode descriptionFocus = FocusScopeNode();
+
   final TextEditingController nameController = TextEditingController();
+
   final TextEditingController descriptionController = TextEditingController();
 
-  ProfileSettings({super.key});
+  @override
+  void dispose() {
+    nameFocus.dispose();
+    descriptionFocus.dispose();
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,47 +52,84 @@ class ProfileSettings extends StatelessWidget {
             ),
           ),
           Center(
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
+            child: InkWell(
+              onTap: () => context.read<ProfileBloc>().add(OnChangeImage()),
+              child: BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileImage) {
+                    return Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: state.image != null
+                                ? ClipOval(
+                                    child: Image.file(
+                                      fit: BoxFit.cover,
+                                      state.image!,
+                                    ),
+                                  )
+                                : ClipOval(
+                                    child: ColoredBox(color: Color(0xff5d8274)),
+                                  ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20,
+                          left: 150,
+                          child: SvgPicture.asset(
+                              'assets/icons/edit-circle-line.svg'),
+                          height: 25,
+                          width: 25,
+                        )
+                      ],
+                    );
+                  }
+                  return SizedBox(
                     height: 150,
                     width: 150,
-                    decoration: const BoxDecoration(
-                        color: Colors.red, shape: BoxShape.circle),
-                  ),
-                ),
-                Positioned(
-                  top: 20,
-                  left: 150,
-                  child: SvgPicture.asset('assets/icons/edit-circle-line.svg'),
-                  height: 25,
-                  width: 25,
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              style: TextStyle(
-                  color: Theme.of(context).textTheme.titleMedium?.color),
-              controller: nameController,
-              decoration: InputDecoration(
-                labelText: 'Name',
+                    child: ClipOval(
+                      child: ColoredBox(color: Color(0xff5d8274)),
+                    ),
+                  );
+                },
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: TextFormField(
-              style: TextStyle(
-                  color: Theme.of(context).textTheme.titleMedium?.color),
-              controller: descriptionController,
-              maxLines: 8,
-              decoration: InputDecoration(
-                labelText: 'Description',
+            child: FocusScope(
+              node: nameFocus,
+              onFocusChange: (value) => context
+                  .read<ProfileBloc>()
+                  .add(OnChangeName(name: nameController.text)),
+              child: TextFormField(
+                controller: nameController,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.titleMedium?.color),
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: FocusScope(
+              node: descriptionFocus,
+              onFocusChange: (value) => context.read<ProfileBloc>().add(
+                  OnChangeDescriptions(
+                      description: descriptionController.text)),
+              child: TextFormField(
+                controller: descriptionController,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.titleMedium?.color),
+                maxLines: 8,
+                decoration: InputDecoration(
+                  labelText: 'Description',
+                ),
               ),
             ),
           )
