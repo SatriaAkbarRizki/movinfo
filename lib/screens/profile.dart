@@ -47,6 +47,15 @@ class ProfileScreens extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Center(
+                child: Text(
+                  'Description',
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
+            ),
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: Card(
