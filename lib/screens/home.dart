@@ -1,12 +1,15 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:movinfo/bloc/profile/profile_bloc.dart';
 import 'package:movinfo/widget/listmovie.dart';
 import 'package:movinfo/widget/button_moremovie.dart';
 import 'package:movinfo/widget/listmovie_random.dart';
 import 'package:movinfo/widget/nothing_screens.dart';
+import 'package:movinfo/widget/profile.dart';
 import 'package:movinfo/widget/titlecategory.dart';
 import 'package:movinfo/widget/topmovie.dart';
 
@@ -40,10 +43,37 @@ class _HomeScreensState extends State<HomeScreens> {
               'MOVINFO',
               style: Theme.of(context).appBarTheme.titleTextStyle,
             ),
-            actions: const [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: CircleAvatar(),
+            actions: [
+              InkWell(
+                onTap: () => Future.delayed(
+                    Duration(milliseconds: 500),
+                    () => showDialog(
+                          context: context,
+                          builder: (context) => ProfileSettings(),
+                        )),
+                child: BlocBuilder<ProfileBloc, ProfileState>(
+                  buildWhen: (previous, current) => previous != current,
+                  builder: (context, state) {
+                    if (state is ProfileImage) {
+                      return Padding(
+                        padding: EdgeInsets.all(10),
+                        child: state.image != null
+                            ? CircleAvatar(
+                                backgroundImage: FileImage(state.image!),
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Color(0xff5d8274),
+                              ),
+                      );
+                    }
+                    return Padding(
+                      padding: EdgeInsets.all(10),
+                      child: CircleAvatar(
+                        backgroundColor: Color(0xff5d8274),
+                      ),
+                    );
+                  },
+                ),
               )
             ],
           )
