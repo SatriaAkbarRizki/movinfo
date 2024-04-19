@@ -27,7 +27,12 @@ class MyTheme {
             fontFamily: 'Abrill',
             fontSize: 18,
             letterSpacing: 1.2,
-          )),
+          ),
+          labelMedium: TextStyle(
+              color: Colors.black,
+              fontSize: 14,
+              fontFamily: 'Questrial',
+              fontWeight: FontWeight.w500)),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               elevation: const MaterialStatePropertyAll(3),
@@ -64,24 +69,28 @@ class MyTheme {
               letterSpacing: 1.5,
               fontFamily: 'Abrill')),
       textTheme: const TextTheme(
-        bodySmall: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontFamily: 'Questrial',
-            fontWeight: FontWeight.w500),
-        titleSmall: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontFamily: 'Questrial',
-            fontWeight: FontWeight.w600),
-        titleMedium: TextStyle(
-            fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white),
-        labelSmall: TextStyle(
-            fontFamily: 'Abrill',
-            fontSize: 18,
-            letterSpacing: 1.2,
-            color: Colors.white),
-      ),
+          bodySmall: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'Questrial',
+              fontWeight: FontWeight.w500),
+          titleSmall: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontFamily: 'Questrial',
+              fontWeight: FontWeight.w600),
+          titleMedium: TextStyle(
+              fontSize: 24, fontWeight: FontWeight.w700, color: Colors.white),
+          labelSmall: TextStyle(
+              fontFamily: 'Abrill',
+              fontSize: 18,
+              letterSpacing: 1.2,
+              color: Colors.white),
+          labelMedium: TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+              fontFamily: 'Questrial',
+              fontWeight: FontWeight.w500)),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               elevation: const MaterialStatePropertyAll(3),
