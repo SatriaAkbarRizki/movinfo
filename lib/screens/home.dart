@@ -31,7 +31,6 @@ class _HomeScreensState extends State<HomeScreens> {
 
   @override
   Widget build(BuildContext context) {
-    log("REBUILD WIDGET ON HOME");
     return Scaffold(
       body: NestedScrollView(
         physics: const BouncingScrollPhysics(
@@ -77,6 +76,16 @@ class _HomeScreensState extends State<HomeScreens> {
           )
         ],
         body: BlocBuilder<MovieBloc, MovieState>(
+          buildWhen: (previous, current) {
+            log('previous: ${previous} and current: ${current}');
+            if (previous is MovieLoading && current is MovieLoaded) {
+              return true;
+            } else if (previous is MovieLoaded && current is MovieLoaded) {
+              return false;
+            } else {
+              return true;
+            }
+          },
           builder: (context, state) {
             if (state is MovieLoading) {
               return Center(
@@ -87,6 +96,7 @@ class _HomeScreensState extends State<HomeScreens> {
               return NothingWidget(
                   message: state.message, type: TypeNothing.datanull);
             } else if (state is MovieLoaded) {
+              log("REBUILD WIDGET ON LIST MOVIES");
               return ListView(
                 physics: const BouncingScrollPhysics(),
                 children: [
