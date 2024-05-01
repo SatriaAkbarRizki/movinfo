@@ -70,7 +70,7 @@ class MainApp extends StatelessWidget {
     ),
     GoRoute(
       path: ProfileScreens.routeName,
-      builder: (context, state) => const ProfileScreens(),
+      builder: (context, state) =>  ProfileScreens(),
     )
   ]);
 }

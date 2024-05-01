@@ -12,7 +12,7 @@ class NavBarMovie extends StatelessWidget {
     const HomeScreens(),
     const SearchScreens(),
     BookmarkScreens(),
-    const ProfileScreens()
+     ProfileScreens()
   ];
   NavBarMovie({super.key});
 
