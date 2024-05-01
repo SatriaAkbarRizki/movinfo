@@ -38,17 +38,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
       elevation: 0,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(20),
             child: Text(
               'Settings Profile',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleSmall
-                  ?.copyWith(fontSize: 18),
+              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontSize: 20,
+                  color: ThemeMode.dark == true ? Colors.white : Colors.black),
             ),
           ),
           Center(
@@ -56,14 +54,14 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               onTap: () => context.read<ProfileBloc>().add(OnChangeImage()),
               child: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
-                  if (state is ProfileImage) {
+                  if (state is ProfileUser) {
                     return Stack(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(20),
                           child: SizedBox(
-                            height: 150,
-                            width: 150,
+                            height: 200,
+                            width: 200,
                             child: state.image != null
                                 ? ClipOval(
                                     child: Image.file(
@@ -71,14 +69,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                                       state.image!,
                                     ),
                                   )
-                                : ClipOval(
-                                    child: ColoredBox(color: Color(0xff5d8274)),
-                                  ),
+                                : null,
                           ),
                         ),
                         Positioned(
                           top: 20,
-                          left: 150,
+                          left: 170,
                           child: SvgPicture.asset(
                               'assets/icons/edit-circle-line.svg'),
                           height: 25,
@@ -87,47 +83,65 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                       ],
                     );
                   }
-                  return SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: ClipOval(
-                      child: ColoredBox(color: Color(0xff5d8274)),
-                    ),
+                  return Stack(
+                    children: [
+                      const SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: ClipOval(
+                          child: ColoredBox(color: Color(0xff5d8274)),
+                        ),
+                      ),
+                      Positioned(
+                        top: 20,
+                        left: 170,
+                        child: SvgPicture.asset(
+                            'assets/icons/edit-circle-line.svg'),
+                        height: 25,
+                        width: 25,
+                      )
+                    ],
                   );
                 },
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 25, bottom: 10),
             child: FocusScope(
+              autofocus: true,
               node: nameFocus,
-              onFocusChange: (value) => context
-                  .read<ProfileBloc>()
-                  .add(OnChangeName(name: nameController.text)),
+              onFocusChange: (value) => nameController.text.isNotEmpty
+                  ? context
+                      .read<ProfileBloc>()
+                      .add(OnChangeName(name: nameController.text))
+                  : null,
               child: TextFormField(
                 controller: nameController,
                 style: TextStyle(
                     color: Theme.of(context).textTheme.titleMedium?.color),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Name',
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
             child: FocusScope(
+              autofocus: true,
               node: descriptionFocus,
-              onFocusChange: (value) => context.read<ProfileBloc>().add(
-                  OnChangeDescriptions(
-                      description: descriptionController.text)),
+              onFocusChange: (value) => descriptionController.text.isNotEmpty
+                  ? context.read<ProfileBloc>().add(OnChangeDescriptions(
+                      description: descriptionController.text))
+                  : null,
               child: TextFormField(
                 controller: descriptionController,
                 style: TextStyle(
                     color: Theme.of(context).textTheme.titleMedium?.color),
                 maxLines: 8,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Description',
                 ),
               ),
