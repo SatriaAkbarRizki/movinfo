@@ -1,9 +1,12 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movinfo/bloc/profile/profile_bloc.dart';
 import 'package:movinfo/widget/about.dart';
 import 'package:movinfo/widget/listmenu.dart';
 import 'package:movinfo/widget/listtheme.dart';
@@ -11,8 +14,10 @@ import 'package:movinfo/widget/listtheme.dart';
 import '../widget/profile.dart';
 
 class ProfileScreens extends StatelessWidget {
+  String? name, description;
+  File? image;
   static String routeName = '/profile';
-  const ProfileScreens({super.key});
+  ProfileScreens({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,34 +32,82 @@ class ProfileScreens extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Container(
-                  height: 130,
-                  width: 130,
-                  decoration: const BoxDecoration(
-                      color: Colors.red, shape: BoxShape.circle),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Center(
-                child: Text(
-                  'Example',
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Center(
-                child: Text(
-                  'Description',
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-              ),
+            BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state is ProfileUser) {
+                  return Column(
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Container(
+                            height: 130,
+                            width: 130,
+                            decoration: BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            child: state.image != null
+                                ? CircleAvatar(
+                                    backgroundImage: FileImage(state.image!),
+                                  )
+                                : null,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Center(
+                          child: Text(
+                            state.name ?? 'Name',
+                            style: Theme.of(context).textTheme.labelSmall,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Center(
+                          child: Text(
+                            state.description ?? 'Description',
+                            style: Theme.of(context).textTheme.labelMedium,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Column(
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          height: 130,
+                          width: 130,
+                          decoration: BoxDecoration(
+                              color: Colors.red, shape: BoxShape.circle),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(
+                        child: Text(
+                          'Name',
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: Text(
+                          'Description',
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             Container(
               margin: const EdgeInsets.only(top: 20),

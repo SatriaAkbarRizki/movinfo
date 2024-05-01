@@ -10,29 +10,31 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final picker = ImagePicker();
+  String? name, description;
   XFile? image;
+  File? imagePath;
+
   ProfileBloc() : super(ProfileInitial()) {
-    //  fixing onChange not listing
     on<OnChangeImage>((event, emit) async {
       await picker.pickImage(source: ImageSource.gallery).then((value) {
         image = value;
       });
       if (image == null) {
-        emit(ProfileImage(null));
+        emit(ProfileUser(
+            image: imagePath, name: name, description: description));
       }
-      final imagePath = File(image!.path);
-      log(imagePath.path.toString() ?? 'failed get image');
-      emit(ProfileImage(imagePath));
+      imagePath = File(image!.path);
+      emit(ProfileUser(image: imagePath, name: name, description: description));
     });
 
     on<OnChangeName>((event, emit) {
-      log('Name: ${event.name.toString()}');
-      emit(ProfileName(event.name ?? null));
+      name = event.name;
+      emit(ProfileUser(image: imagePath, name: name, description: description));
     });
 
     on<OnChangeDescriptions>((event, emit) {
-      log('Description: ${event.description}');
-      emit(ProfileDescription(event.description ?? null));
+      description = event.description;
+      emit(ProfileUser(image: imagePath, name: name, description: description));
     });
   }
 }

@@ -46,27 +46,25 @@ class _HomeScreensState extends State<HomeScreens> {
             actions: [
               InkWell(
                 onTap: () => Future.delayed(
-                    Duration(milliseconds: 500),
+                    const Duration(milliseconds: 500),
                     () => showDialog(
+                          useSafeArea: true,
                           context: context,
                           builder: (context) => ProfileSettings(),
                         )),
                 child: BlocBuilder<ProfileBloc, ProfileState>(
-                  buildWhen: (previous, current) => previous != current,
                   builder: (context, state) {
-                    if (state is ProfileImage) {
+                    if (state is ProfileUser) {
                       return Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: state.image != null
                             ? CircleAvatar(
                                 backgroundImage: FileImage(state.image!),
                               )
-                            : CircleAvatar(
-                                backgroundColor: Color(0xff5d8274),
-                              ),
+                            : null,
                       );
                     }
-                    return Padding(
+                    return const Padding(
                       padding: EdgeInsets.all(10),
                       child: CircleAvatar(
                         backgroundColor: Color(0xff5d8274),

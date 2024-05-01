@@ -5,18 +5,13 @@ sealed class ProfileState {}
 
 final class ProfileInitial extends ProfileState {}
 
-final class ProfileImage extends ProfileState 
-{
-  File? image;
-  ProfileImage(this.image);
-}
-
-final class ProfileName extends ProfileState {
+final class ProfileUser extends ProfileState {
+  final File? image;
   final String? name;
-  ProfileName(this.name);
+  final String? description;
+
+  ProfileUser(
+      {required this.image, required this.name, required this.description});
 }
 
-final class ProfileDescription extends ProfileState {
-  final String? description;
-  ProfileDescription(this.description);
-}
+
