@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+// ignore: unnecessary_import
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,21 +28,6 @@ class DetailScreen extends StatelessWidget {
           ),
           BlocBuilder<ExpandedCubit, bool>(
             builder: (context, state) {
-              return Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    boxShadow: [BoxShadow(color: Colors.black, blurRadius: 30)],
-                  ),
-                  height: state == false
-                      ? MediaQuery.of(context).size.height / 2.8
-                      : MediaQuery.of(context).size.height / 1.5,
-                ),
-              );
-            },
-          ),
-          BlocBuilder<ExpandedCubit, bool>(
-            builder: (context, state) {
               return GestureDetector(
                 onVerticalDragDown: (details) {
                   state == false
@@ -53,8 +38,13 @@ class DetailScreen extends StatelessWidget {
                 },
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(
+                  child: AnimatedContainer(
+                    curve: Curves.decelerate,
+                    duration: Duration(milliseconds: 500),
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(color: Colors.black, blurRadius: 50)
+                        ],
                         color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20),
@@ -106,7 +96,8 @@ class DetailScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   left: 15, right: 5, top: 10, bottom: 10),
                               child: SvgPicture.asset('assets/icons/date.svg',
-                                  theme: const SvgTheme(currentColor: Colors.orange)),
+                                  theme: const SvgTheme(
+                                      currentColor: Colors.orange)),
                             ),
                             Text(
                                 FilterData.filterReleaseDate(
