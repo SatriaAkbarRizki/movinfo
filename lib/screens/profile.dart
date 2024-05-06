@@ -121,8 +121,6 @@ class ProfileScreens extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => showModalBottomSheet(
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
                           useSafeArea: true,
                           context: context,
                           builder: (context) => const Padding(
