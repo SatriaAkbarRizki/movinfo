@@ -8,6 +8,7 @@ import 'package:movinfo/cubit/theme_cubit.dart';
 import 'package:movinfo/navigation/navbar.dart';
 import 'package:movinfo/screens/category.dart';
 import 'package:movinfo/screens/detail.dart';
+import 'package:movinfo/screens/home.dart';
 import 'package:movinfo/screens/profile.dart';
 import 'package:movinfo/theme/mytheme.dart';
 import 'bloc/movie/movie_bloc.dart';
@@ -25,7 +26,8 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => MovieBloc(),
-        ),BlocProvider(
+        ),
+        BlocProvider(
           create: (context) => ProfileBloc(),
         ),
         BlocProvider(
@@ -53,24 +55,47 @@ class MainApp extends StatelessWidget {
     );
   }
 
-  final GoRouter _route = GoRouter(routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (context, state) => NavBarMovie(),
-    ),
-    GoRoute(
-      path: CategoryScreen.routeName,
-      builder: (context, state) =>
-          CategoryScreen(data: state.extra as Map<String, dynamic>),
-    ),
-    GoRoute(
-      path: DetailScreen.routName,
-      builder: (context, state) =>
-          DetailScreen(data: state.extra as Map<String, dynamic>),
-    ),
-    GoRoute(
-      path: ProfileScreens.routeName,
-      builder: (context, state) =>  ProfileScreens(),
-    )
-  ]);
+  final GoRouter _route = GoRouter(
+    routes: <RouteBase>[
+      GoRoute(
+        path: '/',
+        builder: (context, state) => NavBarMovie(),
+      ),
+      GoRoute(
+          path: CategoryScreen.routeName,
+          builder: (context, state) =>
+              CategoryScreen(data: state.extra as Map<String, dynamic>),
+          pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child:
+                    CategoryScreen(data: state.extra as Map<String, dynamic>),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(
+                            opacity: CurveTween(
+                              curve: Curves.easeInBack,
+                            ).animate(animation),
+                            child: child),
+              )),
+      GoRoute(
+          path: DetailScreen.routName,
+          builder: (context, state) =>
+              DetailScreen(data: state.extra as Map<String, dynamic>),
+          pageBuilder: (context, state) => CustomTransitionPage(
+                key: state.pageKey,
+                child: DetailScreen(data: state.extra as Map<String, dynamic>),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) =>
+                        FadeTransition(
+                            opacity: CurveTween(
+                              curve: Curves.easeInOut,
+                            ).animate(animation),
+                            child: child),
+              )),
+      GoRoute(
+        path: ProfileScreens.routeName,
+        builder: (context, state) => ProfileScreens(),
+      )
+    ],
+  );
 }
