@@ -156,6 +156,7 @@ class ProfileScreens extends StatelessWidget {
               ),
             ),
             InkWell(
+              overlayColor: MaterialStatePropertyAll(Colors.transparent),
               onTap: () => showDialog(
                 useSafeArea: true,
                 context: context,
