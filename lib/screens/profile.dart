@@ -121,8 +121,6 @@ class ProfileScreens extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => showModalBottomSheet(
-                          backgroundColor:
-                              Theme.of(context).scaffoldBackgroundColor,
                           useSafeArea: true,
                           context: context,
                           builder: (context) => const Padding(
@@ -158,6 +156,7 @@ class ProfileScreens extends StatelessWidget {
               ),
             ),
             InkWell(
+              overlayColor: MaterialStatePropertyAll(Colors.transparent),
               onTap: () => showDialog(
                 useSafeArea: true,
                 context: context,
@@ -168,19 +167,24 @@ class ProfileScreens extends StatelessWidget {
                   title: Text(
                     'Log Out?',
                     style: TextStyle(
-                        color: Theme.of(context).textTheme.titleSmall?.color),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black),
                   ),
                   content: Text('Are you sure want to log out??',
                       style: TextStyle(
-                          color:
-                              Theme.of(context).textTheme.titleSmall?.color)),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.white
+                              : Colors.black)),
                   actions: [
                     ElevatedButton(
                         onPressed: () {
                           log('no log out');
                           context.pop();
                         },
-                        child: const Text('No')),
+                        child: Text(
+                          'No',
+                        )),
                     ElevatedButton(onPressed: () {}, child: const Text('Yes'))
                   ],
                 ),

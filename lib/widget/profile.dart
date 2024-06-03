@@ -34,6 +34,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
 
   @override
   Widget build(BuildContext context) {
+    log('Theme Mode: ${ThemeMode.system}');
     return Dialog(
       elevation: 0,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -46,12 +47,15 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               'Settings Profile',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontSize: 20,
-                  color: ThemeMode.dark == true ? Colors.white : Colors.black),
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : Colors.black),
             ),
           ),
           Center(
             child: InkWell(
               onTap: () => context.read<ProfileBloc>().add(OnChangeImage()),
+              overlayColor: MaterialStatePropertyAll(Colors.transparent),
               child: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
                   if (state is ProfileUser) {
@@ -65,8 +69,22 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                             child: state.image != null
                                 ? ClipOval(
                                     child: Image.file(
-                                      fit: BoxFit.cover,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
+                                        if (wasSynchronouslyLoaded) {
+                                          return child;
+                                        } else {
+                                          return AnimatedOpacity(
+                                            opacity: frame == null ? 0 : 1,
+                                            duration:
+                                                Duration(milliseconds: 500),
+                                            curve: Curves.easeInOut,
+                                            child: child,
+                                          );
+                                        }
+                                      },
                                       state.image!,
+                                      fit: BoxFit.cover,
                                     ),
                                   )
                                 : null,
@@ -96,7 +114,13 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                         top: 20,
                         left: 170,
                         child: SvgPicture.asset(
-                            'assets/icons/edit-circle-line.svg'),
+                          'assets/icons/edit-circle-line.svg',
+                          theme: SvgTheme(
+                              currentColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                         height: 25,
                         width: 25,
                       )

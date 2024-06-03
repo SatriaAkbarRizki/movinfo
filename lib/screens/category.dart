@@ -20,7 +20,7 @@ class CategoryScreen extends StatelessWidget {
         leading: IconButton(
             onPressed: () => context.go('/'),
             icon: Icon(Icons.arrow_back,
-                color: ThemeMode == MyTheme().lightTheme
+                color: Theme.of(context).brightness == Brightness.light
                     ? Colors.black
                     : Colors.white)),
       ),

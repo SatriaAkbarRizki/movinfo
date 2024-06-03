@@ -12,7 +12,7 @@ class NavBarMovie extends StatelessWidget {
     const HomeScreens(),
     const SearchScreens(),
     BookmarkScreens(),
-     ProfileScreens()
+    ProfileScreens()
   ];
   NavBarMovie({super.key});
 
@@ -28,8 +28,10 @@ class NavBarMovie extends StatelessWidget {
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: BottomNavigationBar(
+                
                 items: [
                   BottomNavigationBarItem(
+                    
                       label: 'Home',
                       icon: SvgPicture.asset(
                         'assets/icons/home.svg',

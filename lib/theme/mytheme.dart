@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class MyTheme {
   get lightTheme => ThemeData(
+      brightness: Brightness.light,
       scaffoldBackgroundColor: const Color(0xfff8f9fb),
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xfff8f9fb),
           titleTextStyle: TextStyle(
@@ -60,7 +63,10 @@ class MyTheme {
       ));
 
   get darkTheme => ThemeData(
+      brightness: Brightness.dark,
       scaffoldBackgroundColor: const Color(0xff252525),
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xff252525),
           titleTextStyle: TextStyle(
